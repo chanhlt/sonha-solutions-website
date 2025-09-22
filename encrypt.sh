@@ -1,0 +1,1 @@
+sudo certbot --nginx -d sonha-solutions.com -d www.sonha-solutions.com
