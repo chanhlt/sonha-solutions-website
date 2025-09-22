@@ -782,10 +782,21 @@
         // Form submission with modal
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            showSuccessModal();
-            // Reset form after submission
-            this.reset();
+            const $that = this;
+            submit(this).then(function() {
+                showSuccessModal();
+                // Reset form after submission
+                $that.reset();
+            });
+            
         });
+
+        function submit(form) {
+            return new Promise((resolve, reject) => {
+                console.log("submitting ...");
+                resolve();
+            }) ;
+        }
 
         // Modal functions
         function showSuccessModal() {
