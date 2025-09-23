@@ -271,7 +271,9 @@
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const $that = this;
-            submit(this).then(function() {
+            submit(this).then(res => res.json()).then(function(json) {
+                console.log('Form submitted successfully');
+                console.log(json.data);
                 showSuccessModal();
                 // Reset form after submission
                 $that.reset();
