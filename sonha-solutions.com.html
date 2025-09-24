@@ -273,6 +273,7 @@
         // Form submission with modal and loading spinner
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            const $that = this;
             const submitBtn = this.querySelector('.submit-btn');
             const btnText = submitBtn.querySelector('.btn-text');
             
@@ -292,7 +293,7 @@
                 showSuccessModal();
                 
                 // Reset form after submission
-                this.reset();
+                $that.reset();
             });
 
         });
