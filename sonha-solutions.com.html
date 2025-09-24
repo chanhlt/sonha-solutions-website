@@ -215,7 +215,10 @@
                     <label for="message">Tin nhắn</label>
                     <textarea id="message" name="message" rows="4" placeholder="Mô tả nhu cầu của bạn..."></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Gửi yêu cầu tư vấn</button>
+                <button type="submit" class="submit-btn">
+                    <span class="btn-text">Gửi yêu cầu tư vấn</span>
+                    <div class="spinner"></div>
+                </button>
             </form>
         </div>
     </section>
@@ -267,18 +270,31 @@
             });
         });
 
-        // Form submission with modal
+        // Form submission with modal and loading spinner
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const $that = this;
+            const submitBtn = this.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            
+            // Show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
             submit(this).then(res => res.json()).then(function(json) {
                 console.log('Form submitted successfully');
-                console.log(json.data);
+                console.log(json.data); 
+                
+                // Hide loading state
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                
+                // Show success modal
                 showSuccessModal();
+                
                 // Reset form after submission
-                $that.reset();
+                this.reset();
             });
-            
+
         });
 
         function submit(form) {
@@ -288,7 +304,6 @@
                 body: formData
             });
         }
-
         // Modal functions
         function showSuccessModal() {
             const modal = document.getElementById('successModal');
